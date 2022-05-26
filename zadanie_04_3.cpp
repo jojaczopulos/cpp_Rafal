@@ -18,11 +18,24 @@ void initialization();
 void execute();
 void finalization();
 }
+namespace zadanie_5{
+
+int math_1(int a, int b);
+void math_2();
+void execute();
+
+}
+
 int main(int argc, char* argv[]){
 
 //zadanie_3::execute();
-zadanie_4::initialization();
-zadanie_4::execute();
+//zadanie_4::initialization();
+//zadanie_4::execute();
+//zadanie_4::finalization();
+//zadanie_5::math_1(5,5);
+std::cout << "wynik funkcji 1 to: " << zadanie_5::math_1(10,10) << std::endl;
+zadanie_5::math_2();
+zadanie_5::execute();
 
      
 
@@ -77,6 +90,8 @@ void initialization(){
 }
 void execute(){
        for(int i=0; i < data_size; i++){
+        *(data_ptr + i)= 0 ;
+
         *(data_ptr + i)=(rand() % 8092) ;
          std::cout << "wyswietlam tablice " << "element " << i << " wynosi: " <<  *(data_ptr + i) << std::endl << std::endl;
     
@@ -84,16 +99,165 @@ void execute(){
     memcpy(data_copy_ptr, data_ptr, data_size*sizeof(int) );
 
     for(int i=0; i < data_size; i++){
-        *(data_copy_ptr + i)=*(data_copy_ptr + i) + 255;
-         std::cout << "wyswietlam tablice copy + 255  " << "element " << i << " wynosi: " <<  *(data_copy_ptr + i) << std::endl << std::endl;
+
+        //*(data_copy_ptr + i)=*(data_copy_ptr + i) + 255;
+         std::cout << "wyswietlam tablice copy + 255  " << "element " << i << " wynosi: " <<  *(data_copy_ptr + i) + 255 << std::endl << std::endl;
     
     }
+    //czyszczecie tablicy bo coś tam zawiera po alokacji
+    for(int i=0; i < calculations_size; i++){
+
+        *(calculations_ptr + i) = 0;
+
+    }
+
+    
+
+     for(int i=0; i < data_size; i++){
+
+          if ( i % 3 == 0 ){ // 0 3 6 9
+
+        *(calculations_ptr + 0) = *(calculations_ptr + 0) + *(data_copy_ptr + i);
+          }
+           if ( i % 3 == 1 ){ // 1 4 7 10
+
+        *(calculations_ptr + 1) = *(calculations_ptr + 1) + *(data_copy_ptr + i);
+          }
+           if ( i % 3 == 2 ){ // 2 5 8 11
+
+        *(calculations_ptr + 2) = *(calculations_ptr + 2) + *(data_copy_ptr + i);
+          }
+
+
+
+        // std::cout << "wyswietlam tablice  oryginalna  " << "element " << i << " wynosi: " <<  *(data_ptr + i) << std::endl << std::endl;
+    
+    } 
+     for(int i=0; i < calculations_size; i++){
+
+        std::cout << "wyswietlam tablice  obliczeń  " << "element " << i << " wynosi: " <<  *(calculations_ptr + i) << std::endl << std::endl;
+    }
 }
+
 void finalization(){
 
+    delete [] data_ptr ;
+    delete [] data_copy_ptr ;
+    delete [] calculations_ptr ;
+}
+
+}
+namespace zadanie_5{
+
+int math_1(int a, int b){
+    int c;
+    c = a*b ;
+    //std::cout << __FUNCSIG__ << std::endl;
+    return c;
+}
+void math_2(){
+    int a,b,c ;
+    a=5;
+    b=5;
+    c = a*b ;
+
+    std::cout <<"wynik funkcji 2 to: " << c << std::endl;
+
+    //std::cout << __FUNCSIG__ << std::endl;
+
+}
+void execute(){
+
+    void (*ptr_on_func_1)();
+    ptr_on_func_1 = math_2 ;
+
+   /* int (*ptr_on_func_2)(); 
+    ptr_on_func_1 */
+
 }
 
 }
 
-
+/*
+to masz coś takiego
+Rafał Andrusieczko16:21
+int foo(int a, int b) {return a+ b;}
+int abc(int a, int b) {return a*b;}
+(edytowano)
+Rafał Andrusieczko16:21
+czyli jesteś wstanie utworzyć funkcję
+Rafał Andrusieczko16:21
+które realizują różne funkcjonalności
+Rafał Andrusieczko16:21
+no i też jesteś wstanie przypisać funkcję do zmiennej
+Rafał Andrusieczko16:21
+bo nie wiesz czy chcesz wywołać foo czy abc
+Rafał Andrusieczko16:22
+możesz przypisać ją do zmiennej
+Rafał Andrusieczko16:22
+czyli
+Rafał Andrusieczko16:22
+aby utworzyć wskaźnik na funkcję
+Rafał Andrusieczko16:22
+musisz skupić się tylko na tym fragmencie int abc(int a, int b)
+Rafał Andrusieczko16:22
+czyli wiemy jaki wynik zwórci nam funkcja
+Rafał Andrusieczko16:22
+jest to liczba całkowita
+Rafał Andrusieczko16:23
+wiemy jakie argumenty przyjmuje funkcja
+Rafał Andrusieczko16:23
+są to 2 liczby całkowite
+Rafał Andrusieczko16:23
+więc jesteśmy wstanie utworzyć wskaźnik na tą funkcję
+Rafał Andrusieczko16:23
+int (ptr*)(int, int); (edytowano)
+Rafał Andrusieczko16:23
+ptr - to nazwa zmiennej
+Rafał Andrusieczko16:23
+i teraz
+Rafał Andrusieczko16:24
+możesz przypisać dobrowolną funkcję pod ptr
+Rafał Andrusieczko16:24
+czy to będzie abc (edytowano)
+Rafał Andrusieczko16:24
+czy to będzie foo
+Rafał Andrusieczko16:24
+ptr = &abc;
+ptr = &foo;
+Rafał Andrusieczko16:24
+ważne jest znowu &
+Rafał Andrusieczko16:24
+bo dzięki temu operatorowi, jesteśmy wstanie wyłuskać adres
+Rafał Andrusieczko16:25
+no i teraz najłatwiejsze
+Rafał Andrusieczko16:25
+kiedy chcemy wołać funkcję
+Rafał Andrusieczko16:25
+to wystarczy użyć wskaźnika, tak samo jak wywołujemy funkcję
+Rafał Andrusieczko16:25
+int result = ptr(5, 1);
+Rafał Andrusieczko16:25
+i teraz zależy co przypisałeś do zmiennej
+Rafał Andrusieczko16:26
+to ta funkcja się wykona
+Rafał Andrusieczko16:26
+i czemu to jest ważne
+Rafał Andrusieczko16:26
+często jest tak, że chcielibyśmy wywołać funkcję
+Rafał Andrusieczko16:26
+w innej funkcji
+Rafał Andrusieczko16:27
+tak aby wykonać jakieś określone zadanie
+Rafał Andrusieczko16:27
+wysyłamy request do serwera, i wiemy jaki to jest request
+Rafał Andrusieczko16:27
+więc przypisujemy funkcję która ma zostać wysłana
+Rafał Andrusieczko16:27
+albo zły przykład bo skomplikowany
+Rafał Andrusieczko16:28
+poczytaj o c++ callback
+Rafał Andrusieczko16:28
+tam będzie jak używać wskaźników na funkcję
+*/
     
