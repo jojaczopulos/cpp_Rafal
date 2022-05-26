@@ -1,25 +1,21 @@
 #include <iostream>
-#include <cstdlib>
+#include <cstdlib>  // std::srand(), std::rand()
+#include <ctime>    // std::time()
 
 namespace zadanie_0{
 
 void execute();
-
+  
 }
 namespace zadanie_1{
 
 void execute();
-
+  
 }
 namespace zadanie_2{
 
 void execute();
-
-}
-namespace zadanie_3{
-
-void execute();
-
+  
 }
 
 int main(int argc, char* argv[]){
@@ -29,91 +25,81 @@ int main(int argc, char* argv[]){
 zadanie_2::execute();
 
 }
+
 namespace zadanie_0{
 
 void execute(){
-    srand(1234);
-    const int size = 10;
-    unsigned int array[size];
-    unsigned int *w = array;
-  
-   
+srand(1234);
+const int size= 10;
+unsigned int array[size];
+unsigned int *wsk;
 
-    for(int i=0; i < size; i++){
-        array[i]=(rand() % 1024) ;
-         std::cout << "wyswietlam tablice " << array[i] << std::endl << std::endl;
-    }
-    std::cout << "wyswietlam tylko 5 element za pomoca wskaznika " << w[4]<< std::endl << std::endl; 
 
-     for(int i=0; i < size; i++){
-         std::cout << "index: "<< i <<  " adres: "<< w << " wartosc  " << *(w + i) << std::endl;
-         
-    }
+  for(int i = 0; i < size; i++){
+    array[i]= (rand() % 1024); 
+    std::cout << "indeks : " << i << " wartosc w tablicy: " << array[i] << std::endl;
+  }
+wsk = array;
+//wsk = &array[0];
+wsk = &array[4];
+
+std::cout << " wyswietlam tylko element 5 tablicy:  " << *wsk << " to jest jego wartosc " << std::endl;
+
+wsk = &array[0];
+  for(int i; i < size; i++ ){
+    std::cout << "Index: " << i << " Adres: " << wsk << " Wartosc: " << *(wsk + i) << std::endl;
+
+  }
+
 }
 }
 namespace zadanie_1{
 
 void execute(){
-    srand(1234);
+srand(1234);
 
-    int size;
-    int *array;
-    array = new int [size];
+unsigned int *wsk;
+unsigned int size;
 
-    //unsigned int array[size];
-    //unsigned int *w = array;
-    std::cout << "ile liczb w tablicy chcesz umiescic? " << std::endl;
-    std::cin >> size;
-   
+  std::cout << "ile elementow ma miec tablica? " << std::endl;
+  std::cin >> size;
+
+wsk = new unsigned int[size];
 
 
-    for(int i=0; i < size; i++){
-        array[i]=(rand() % 1024) ;
 
-         std::cout << "wyswietlam tablice " << array[i] << std::endl;
-    }
-   //std::cout << "wyswietlam tylko 5 element za pomoca wskaznika " << w[4]<< std::endl << std::endl; 
+  for(int i = 0; i < size; i++){
+    wsk[i]= (rand() % 1024); 
+    
+    std::cout << "indeks : " << i << " wartosc w tablicy: " << wsk[i] << std::endl;
+  }
+  std::cout << " wyswietlam tylko element 5 tablicy:  " << *(wsk + 4 ) << " to jest jego wartosc " << std::endl;
 
-     //for(int i=0; i < size; i++){
-       //  std::cout << "index: "<< i <<  " adres: "<< w << " wartosc  " << *(w + i) << std::endl;
-     delete [] array;     
-    }
-   
+
+  for(int i; i < size; i++ ){
+    std::cout << "Index: " << i << " Adres: " << wsk << " Wartosc: " << *(wsk + i) << std::endl;
+
+  }
+
+delete [] wsk;
+//std::cout << " wyswietlam tylko element 5 tablicy:  " << *(wsk + 4 ) << " to jest jego wartosc " << std::endl;
+}
 }
 namespace zadanie_2{
 
 void execute(){
-    float array[] ={1.1f, 0.5f, 1.8f, 9.9f, 124.1f, 6.0f, 7.0f, 12.1f, 12.1f, 9.0f, 4.4f};
-    int s1 = sizeof(array); //44
-    int s2 = sizeof(float); //4
-    int length;
-    int len = sizeof(array) / sizeof(array[0]);
 
-    length = s1 / s2 ;
-    
-    std::cout << "rozmiar tablicy: " << s1 << " rozmiar float'a: " << s2 << "  rozmiar tablicy float'ow wynosi: " << length << " liczone inna metoda: "<< len << std::endl;
-    
+  float array[] = {1.1f, 0.5f, 1.8f, 9.9f, 124.1f, 6.0f, 7.0f, 12.1f, 12.1f, 9.0f, 4.4f};
 
-}
+  int s1, s2;
+  s1 = sizeof(array); // 44
+  s2 = sizeof(float); // 4
+  int length;
+  length = s1/s2 ; 
 
-}
-namespace zadanie_3{
-
-void execute(){
-     srand(1234);
-     const unsigned int size = 10;
-     unsigned int size_c = size * 4;
-     unsigned int size_c2 = (size *4) / 2 ;
-     unsigned int *w = &size_c;  // przypisz alokację pamięci do tego wskaźnika
-     unsigned int *w2= &size_c2; // przypisz alokację pamięci do tego wskaźnika
-
-    unsigned int array[size]; 
-
-
-
-
-
+  std::cout << "rozmiar tablicy: " << s1 << " rozmiar float'a: " << s2 << "  rozmiar tablicy float'ow wynosi: " << length <<std::endl;
+ 
 
 }
-
+  
 }
