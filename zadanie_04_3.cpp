@@ -20,8 +20,9 @@ void finalization();
 }
 namespace zadanie_5{
 
-int math_1(int a, int b);
-void math_2();
+int foo(int a, int b);
+int abc(int a, int b);
+void show_me_the_money();
 void execute();
 
 }
@@ -32,11 +33,10 @@ int main(int argc, char* argv[]){
 //zadanie_4::initialization();
 //zadanie_4::execute();
 //zadanie_4::finalization();
-//zadanie_5::math_1(5,5);
-std::cout << "wynik funkcji 1 to: " << zadanie_5::math_1(10,10) << std::endl;
-zadanie_5::math_2();
 zadanie_5::execute();
 
+
+ 
      
 
 }
@@ -149,36 +149,47 @@ void finalization(){
 }
 namespace zadanie_5{
 
-int math_1(int a, int b){
-    int c;
-    c = a*b ;
-    //std::cout << __FUNCSIG__ << std::endl;
-    return c;
+int foo(int a, int b){
+   // std::cout << __FUNCSIG__ << std::endl;
+    return a+b;
+
 }
-void math_2(){
-    int a,b,c ;
-    a=5;
-    b=5;
-    c = a*b ;
+int abc(int a, int b){
+    return a*b;
 
-    std::cout <<"wynik funkcji 2 to: " << c << std::endl;
+}
+void show_me_the_money(){
 
-    //std::cout << __FUNCSIG__ << std::endl;
-
+    std::cout << "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$" << std::endl;
 }
 void execute(){
 
-    void (*ptr_on_func_1)();
-    ptr_on_func_1 = math_2 ;
+   
+    int (*ptr_1)(int, int);
 
-   /* int (*ptr_on_func_2)(); 
-    ptr_on_func_1 */
+    int (*ptr_2)(int, int);
+
+    void (*ptr_3)();
+
+
+    ptr_1 = &abc;
+    ptr_2 = &foo;
+    ptr_3 = &show_me_the_money;
+
+
+    int result_1 = ptr_1(5, 5);
+    int result_2 = ptr_2(5, 5);
+  
+
+    std::cout << "wynik 1 funkcji wykonanej za pomoca wskaznika to: " << result_1 << " wynik 2 funkcji wykonanej za pomoca wskaznika to: " << result_2 << std::endl;
+    
+    
+    
 
 }
 
 }
 
-/*
 to masz coś takiego
 Rafał Andrusieczko16:21
 int foo(int a, int b) {return a+ b;}
@@ -259,5 +270,4 @@ Rafał Andrusieczko16:28
 poczytaj o c++ callback
 Rafał Andrusieczko16:28
 tam będzie jak używać wskaźników na funkcję
-*/
-    
+
