@@ -5,14 +5,14 @@
 namespace zadanie_0{
 
 char* create_raw_string();
-void remove_raw_string(char &argument);
+void remove_raw_string(char* &argument);
 }
 
 int main(int argc, char* argv[]){
 
 zadanie_0::create_raw_string();
-zadanie_0::remove_raw_string(zadanie_0::create_raw_string());
-  //zadanie_0::display(14,zadanie_0::time_converter(14));
+zadanie_0::remove_raw_string( zadanie_0::create_raw_string() );
+
 
 }
 
@@ -31,7 +31,7 @@ int lenght = std::strlen(array);
 std::cout << "ilosc znakow w tablicy to: " << lenght << std::endl; // liczymy znaki
 std::cout << "rozmiar tablicy array to: " << sizeof(array)<< std::endl;
 
-char* buffer = (char*)malloc(lenght);
+char* buffer = (char*)malloc(lenght); // dynamiczna alokacja pamieci dla nowej tablicy
 
 for(int i= 0; i < lenght; i++){
 
@@ -48,11 +48,11 @@ return buffer;
 
 }
 
-void remove_raw_string(char &argument){
+void remove_raw_string(char* &argument){
 
-   char *clear = &argument;s
-   free (clear);
+free (argument);
 
+   
 }
 
 
